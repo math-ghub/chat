@@ -19,7 +19,10 @@ main {
 }
 
 #chat-container {
-    height: 85%
+    height: 85%;
+    overflow: auto;
+    padding: 15px;
+    padding-bottom: 0;
 }
 
 #chat-bottom {
@@ -44,4 +47,10 @@ main {
 #message-sender:focus {
     box-shadow: none;
     outline: none;
+}
+
+.mensagem {
+    background-color: white;
+    width: fit-content;
+    margin-bottom: 10px;
 }

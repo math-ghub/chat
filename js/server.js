@@ -10,10 +10,11 @@ socket.on("connection", (user) => {
     console.log(`${users.length} Clientes conectados!`);
 
     user.on("message", (info) => {
-        console.log(info.toString());
+        const vals = JSON.parse(info);
+        console.log(vals);
         users.forEach((person) => {
             if (person != user) {
-                person.send(info.toString());
+                person.send(info);
             }
         })
     })
