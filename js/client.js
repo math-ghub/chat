@@ -1,8 +1,9 @@
-const socket = new WebSocket("ws://localhost:8080");
-
 const chatContainer = document.querySelector("#chat-container");
 const txtInput = document.querySelector("#message-sender");
 const localUser = document.querySelector("#usertext");
+const ipBox = document.querySelector("#ip");
+let replicateMessage;
+let socket;
 
 txtInput.addEventListener("keydown", (id) => {
     if (id.key == "Enter") {
@@ -12,18 +13,29 @@ txtInput.addEventListener("keydown", (id) => {
     }
 })
 
-socket.onopen = () => {
-    console.log("Conectado ao Servidor!");
-}
+ipBox.addEventListener("keypress", (v) => {
+    if (v.key == "Enter") {
+        if (socket) {socket.close()};
+        socket = new WebSocket(`ws://${ipBox.value}:8080`);
 
-socket.onmessage = (txt) => {
-    const vals = JSON.parse(txt.data);
-    createMessage(vals.text, vals.username);
-}
+        socket.onopen = () => {
+            console.log("Conectado ao Servidor!");
+        }
+        
+        socket.onmessage = (txt) => {
+            const vals = JSON.parse(txt.data);
+            createMessage(vals.text, vals.username);
+        }
 
-function replicateMessage(txt) {
-    socket.send(JSON.stringify({text: txt, username: localUser.value}));
-}
+        replicateMessage = (txt) => {
+            socket.send(JSON.stringify({text: txt, username: localUser.value}));
+        }
+    }
+})
+
+
+
+
 
 function createMessage(txt, user) {
     const box = document.createElement("div");
