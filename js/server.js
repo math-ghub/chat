@@ -14,7 +14,7 @@ socket.on("connection", (user) => {
         console.log(vals);
         users.forEach((person) => {
             if (person != user) {
-                person.send(info);
+                person.send(JSON.stringify(vals));
             }
         })
     })
