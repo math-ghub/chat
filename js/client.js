@@ -16,7 +16,7 @@ txtInput.addEventListener("keydown", (id) => {
 ipBox.addEventListener("keypress", (v) => {
     if (v.key == "Enter") {
         if (socket) {socket.close()};
-        socket = new WebSocket(`wss://${ipBox.value}:8080`);
+        socket = new WebSocket(`ws://${ipBox.value}:8080`);
 
         socket.onopen = () => {
             console.log("Conectado ao Servidor!");
