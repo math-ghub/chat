@@ -1,6 +1,31 @@
 const WebSocket = require("ws");
-
+const http = require("http");
 const socket = new WebSocket.Server({port: 8080});
+const fs = require("fs");
+const path = require("path");
+
+const server = http.createServer((req, res) => {
+    console.log("Cliente Conectado com sucesso!");
+    const url = req.url;
+    console.log(url);
+    if (url == "/") {
+        res.writeHead(200, {"Content-type": "text/html; charset=utf-8"});
+        fs.readFile("../index.html", "utf-8", (err, data) => {
+            res.end(data);
+        })
+    } else {
+        const file = ".." + url;
+        const extName = path.extname(file);
+        res.writeHead(200, {"Content-type": "text/" + extName.substring(1)});
+        fs.readFile(file, "utf-8", (err, data) => {
+            res.end(data);
+        })
+    }
+})
+
+server.listen(8221, () => {
+    console.log("Servidor funcionando!");
+})
 
 const users = [];
 
