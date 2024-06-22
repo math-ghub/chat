@@ -14,7 +14,7 @@ body {
 
 main {
     background-color: rgb(232, 232, 232);
-    width: 60em;
+    width: 30em;
     height: 35em;
 }
 
@@ -49,8 +49,28 @@ main {
     outline: none;
 }
 
-.mensagem {
-    background-color: white;
+.mensagem, .mensagem-self {
     width: fit-content;
     margin-bottom: 10px;
+    padding: 6px;
+    border-radius: 11px;
+}
+
+.mensagem {
+    background-color: white;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.418);
+}
+
+:is(.mensagem, .mensagem-self) > h2 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:is(.mensagem, .mensagem-self) > p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mensagem-self {
+    background-color: rgb(214, 248, 164);
+    box-shadow: -1px 2px 4px rgba(0, 0, 0, 0.418);
+    margin-left: auto;
 }

@@ -7,7 +7,7 @@ let socket;
 
 txtInput.addEventListener("keydown", (id) => {
     if (id.key == "Enter") {
-        createMessage(txtInput.value, localUser.value);
+        createMessage(txtInput.value, localUser.value, true);
         replicateMessage(txtInput.value);
         txtInput.value = "";
     }
@@ -24,7 +24,7 @@ ipBox.addEventListener("keypress", (v) => {
         
         socket.onmessage = (txt) => {
             const vals = JSON.parse(txt.data);
-            createMessage(vals.text, vals.username);
+            createMessage(vals.text, vals.username, false);
         }
 
         replicateMessage = (txt) => {
@@ -33,11 +33,7 @@ ipBox.addEventListener("keypress", (v) => {
     }
 })
 
-
-
-
-
-function createMessage(txt, user) {
+function createMessage(txt, user, self) {
     const box = document.createElement("div");
     const userName = document.createElement("h2");
     const msg = document.createElement("p");
@@ -48,7 +44,11 @@ function createMessage(txt, user) {
     box.appendChild(userName);
     box.appendChild(msg);
 
-    box.setAttribute("class", "mensagem");
+    if (self) {
+        box.setAttribute("class", "mensagem-self");
+    } else {
+        box.setAttribute("class", "mensagem");
+    }
 
     chatContainer.appendChild(box);
 
